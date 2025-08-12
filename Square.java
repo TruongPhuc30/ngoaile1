@@ -23,7 +23,7 @@ public class Square extends Expression {
      */
     @Override
     public String toString() {
-        return "(" + expression.toString() + ")^2";
+        return "(" + expression.toString() + ") ^ 2";
     }
 
     /**
