@@ -28,7 +28,7 @@ public class Numeral extends Expression {
      *
      * @return Chuỗi biểu diễn giá trị số.
      */
-  @Override
+    @Override
     public String toString() {
         if (value == (int) value) {
             return Integer.toString((int) value);
