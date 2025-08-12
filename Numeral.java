@@ -28,11 +28,15 @@ public class Numeral extends Expression {
      *
      * @return Chuỗi biểu diễn giá trị số.
      */
-    @Override
+  @Override
     public String toString() {
-        return Double.toString(value);
+        if (value == (int) value) {
+            return Integer.toString((int) value);
+        } else {
+            return Double.toString(value);
+        }
     }
-
+    
     /**
      * Trả về giá trị số của biểu thức.
      *
