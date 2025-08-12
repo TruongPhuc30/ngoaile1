@@ -1,8 +1,9 @@
 /**
- * Lớp biểu diễn một biểu thức nhị phân gồm hai biểu thức con và một toán tử.
- * Hỗ trợ các toán tử: "+", "-", "*", "/".
+ * Lớp trừu tượng biểu diễn một biểu thức nhị phân gồm hai biểu thức con.
+ * Các lớp con như {@code Addition}, {@code Subtraction}, {@code Multiplication}, {@code Division}
+ * sẽ kế thừa và triển khai logic cụ thể cho từng phép toán.
  */
-public class BinaryExpression extends Expression {
+public abstract class BinaryExpression extends Expression {
 
     /** Biểu thức bên trái. */
     protected Expression left;
@@ -10,51 +11,68 @@ public class BinaryExpression extends Expression {
     /** Biểu thức bên phải. */
     protected Expression right;
 
-    /** Toán tử giữa hai biểu thức, ví dụ "+", "-", "*", "/". */
-    protected String operator;
-
     /**
-     * Khởi tạo một biểu thức nhị phân với hai biểu thức con và toán tử cho trước.
+     * Khởi tạo một biểu thức nhị phân với hai biểu thức con.
      *
      * @param left Biểu thức bên trái.
      * @param right Biểu thức bên phải.
-     * @param operator Toán tử giữa hai biểu thức.
      */
-    public BinaryExpression(Expression left, Expression right, String operator) {
+    public BinaryExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
-        this.operator = operator;
     }
 
     /**
-     * Trả về biểu thức dưới dạng chuỗi, ví dụ: "(3 + 5)".
+     * Trả về biểu thức bên trái.
      *
-     * @return Chuỗi biểu diễn biểu thức nhị phân.
+     * @return Biểu thức bên trái.
+     */
+    public Expression getLeft() {
+        return left;
+    }
+
+    /**
+     * Gán biểu thức bên trái.
+     *
+     * @param left Biểu thức mới bên trái.
+     */
+    public void setLeft(Expression left) {
+        this.left = left;
+    }
+
+    /**
+     * Trả về biểu thức bên phải.
+     *
+     * @return Biểu thức bên phải.
+     */
+    public Expression getRight() {
+        return right;
+    }
+
+    /**
+     * Gán biểu thức bên phải.
+     *
+     * @param right Biểu thức mới bên phải.
+     */
+    public void setRight(Expression right) {
+        this.right = right;
+    }
+
+    /**
+     * Trả về biểu thức dưới dạng chuỗi.
+     * Các lớp con cần triển khai phương thức này để biểu diễn phép toán cụ thể.
+     *
+     * @return Chuỗi biểu diễn biểu thức.
      */
     @Override
-    public String toString() {
-        return "(" + left.toString() + " " + operator + " " + right.toString() + ")";
-    }
+    public abstract String toString();
 
     /**
-     * Tính và trả về giá trị của biểu thức nhị phân.
-     * Nếu chia cho 0, trả về NaN.
+     * Tính và trả về giá trị của biểu thức.
+     * Các lớp con cần triển khai phương thức này để thực hiện phép toán cụ thể.
      *
      * @return Giá trị số của biểu thức.
      */
     @Override
-    public double evaluate() {
-        switch (operator) {
-            case "+":
-                return left.evaluate() + right.evaluate();
-            case "-":
-                return left.evaluate() - right.evaluate();
-            case "*":
-                return left.evaluate() * right.evaluate();
-            case "/":
-                return right.evaluate() != 0 ? left.evaluate() / right.evaluate() : Double.NaN;
-            default:
-                throw new UnsupportedOperationException("Toán tử không hỗ trợ: " + operator);
-        }
-    }
+    public abstract double evaluate();
 }
